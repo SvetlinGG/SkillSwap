@@ -1,10 +1,23 @@
-<div class="form-container">
-    <h2>Login</h2>
-  
-    <form (ngSubmit)="login()">
-      <input type="email" placeholder="Email" [(ngModel)]="email" name="email">
-      <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
-  
-      <button type="submit">Login</button>
-    </form>
-  </div>
+
+  <body>
+    <div class="login-form">
+       <div class="text">
+          LOGIN
+       </div>
+       <form (ngSubmit)="login()">
+          <div class="field">
+             <div class="fas fa-envelope"></div>
+             <input type="email" placeholder="Email" [(ngModel)]="email" name="email">
+          </div>
+          <div class="field">
+             <div class="fas fa-lock"></div>
+             <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
+          </div>
+          <button>LOGIN</button>
+          <div class="link">
+             Not a member?
+             <a href="#">Signup now</a>
+          </div>
+       </form>
+    </div>
+ </body>
