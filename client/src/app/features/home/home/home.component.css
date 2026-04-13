@@ -1,0 +1,14 @@
+
+.home {
+    text-align: center;
+    padding: 100px 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #00d4ff;
+    color: black;
+    text-decoration: none;
+  }
