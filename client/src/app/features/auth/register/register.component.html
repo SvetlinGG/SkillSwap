@@ -1,10 +1,32 @@
-<div class="form-container">
-    <h2>Register</h2>
-  
-    <form (ngSubmit)="register()">
-      <input type="email" placeholder="Email" [(ngModel)]="email" name="email">
-      <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
-  
-      <button type="submit">Register</button>
-    </form>
-  </div>
+
+
+  <body>
+    <div class="login-form">
+       <div class="text">
+          REGISTER
+       </div>
+       <form (ngSubmit)="register()">
+        <div class="field">
+          <div class="fas fa-envelope"></div>
+          <input type="name" placeholder="Name" [(ngModel)]="name" name="name">
+       </div>
+          <div class="field">
+             <div class="fas fa-envelope"></div>
+             <input type="email" placeholder="Email" [(ngModel)]="email" name="email">
+          </div>
+          <div class="field">
+             <div class="fas fa-lock"></div>
+             <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
+          </div>
+          <div class="field">
+            <div class="fas fa-lock"></div>
+            <input type="password" placeholder="Re-Password" [(ngModel)]="password" name="password">
+         </div>
+          <button>REGISTER</button>
+          <div class="link">
+             Not a member?
+             <a href="#">Signup now</a>
+          </div>
+       </form>
+    </div>
+ </body>

@@ -9,12 +9,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-
+  name = '';
   email = '';
   password = '';
 
   register(){
-    console.log(this.email, this.password);
+    console.log(this.name, this.email, this.password);
     
   }
 
