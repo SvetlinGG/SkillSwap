@@ -4,7 +4,16 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
+    {path: '', loadComponent: () => 
+        import('./features/home/home/home.component')
+        .then( c => c.HomeComponent)
+    },
+    {
+        path: 'skills',
+        loadChildren: () =>
+            import('./features/skills/skills.routes')
+            .then( r => r.skillsRoutes)
+    },
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
 
