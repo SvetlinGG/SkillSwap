@@ -26,6 +26,7 @@ export class RegisterComponent {
       error: (err) => alert(err.error.message)
     });
     
+    
   }
 
 }
