@@ -11,6 +11,8 @@ export class SkillsCatalogComponent implements OnInit {
 
   skills: any[] = [];
 
-  
+  ngOnInit(): void {
+    
+  }
 
 }
