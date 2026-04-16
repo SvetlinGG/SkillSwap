@@ -9,4 +9,4 @@ const skillSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-module.exports =  mongoose.model('Skill', skillSchema);
+ export default  mongoose.model('Skill', skillSchema);
