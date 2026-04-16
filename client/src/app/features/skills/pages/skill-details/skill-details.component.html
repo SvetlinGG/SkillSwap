@@ -1,6 +1,8 @@
-<div *ngIf="skill">
+<div>
+  @if (skill) {
     <h2>{{ skill.title }}</h2>
     <p>{{ skill.description }}</p>
     <p>Category: {{ skill.category }}</p>
     <p>Level: {{ skill.level }}</p>
-  </div>
+  }
+</div>

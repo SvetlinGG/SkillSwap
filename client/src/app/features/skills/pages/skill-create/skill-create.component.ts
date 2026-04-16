@@ -16,7 +16,8 @@ export class SkillCreateComponent {
     title: '',
     description: '',
     category: '',
-    level: 'Beginner'
+    level: 'Beginner' as 'Beginner' | 'Intermediate' | 'Advanced',
+    owner: ''
   };
   constructor( private skillsService: SkillsService, private router: Router) {}
 
