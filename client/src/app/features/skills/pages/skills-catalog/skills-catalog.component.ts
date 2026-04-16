@@ -1,18 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { SkillsService } from '../../services/skills.service';
+import { Skill } from '../../models/skill.model';
 
 @Component({
   selector: 'app-skills-catalog',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './skills-catalog.component.html',
   styleUrl: './skills-catalog.component.css'
 })
 export class SkillsCatalogComponent implements OnInit {
 
-  skills: any[] = [];
+  skills: Skill[] = [];
 
-  ngOnInit(): void {
-    
+  constructor(private skillsService: SkillsService){}
+
+  ngOnInit() {
+    this.skillsService.getSkills().subscribe(data => {
+      this.skills = data;
+    });
   }
 
 }

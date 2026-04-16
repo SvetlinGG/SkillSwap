@@ -1,1 +1,15 @@
-<p>skill-create works!</p>
+<h2>Create Skill</h2>
+
+<form (ngSubmit)="submit()">
+  <input [(ngModel)]="skill.title" name="title" placeholder="Title" required />
+  <textarea [(ngModel)]="skill.description" name="description"></textarea>
+  <input [(ngModel)]="skill.category" name="category" placeholder="Category" />
+
+  <select [(ngModel)]="skill.level" name="level">
+    <option>Beginner</option>
+    <option>Intermediate</option>
+    <option>Advanced</option>
+  </select>
+
+  <button type="submit">Create</button>
+</form>
