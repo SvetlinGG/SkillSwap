@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
 const skillSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    category: { type: String, required: true },
-    level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner' },
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-}, { timestamps: true });
+    title: String,
+    description: String,
+    category: String,
+    level: String,
+    owner: String,
+    createdAt: { type: Date, default: Date.now }
+});
 
-export default mongoose.model('Skill', skillSchema);
+module.exports =  mongoose.model('Skill', skillSchema);

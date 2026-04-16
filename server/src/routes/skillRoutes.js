@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getSkills, getSkillById, createSkill } from '../controllers/skillController.js';
+import { Skill } from '../models/Skill.js'
 
 const router = Router();
 
