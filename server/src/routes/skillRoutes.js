@@ -5,8 +5,12 @@ import  Skill  from '../models/Skill.js'
 const router = Router();
 
 router.get('/', async (req, res) => {
-    const skills = await Skill.find();
-    res.json(skills);
+    try {
+        const skills = await Skill.find().sort({ createdAt: -1});
+        res.json(skills);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch skills'})
+    }
 });
 
 
