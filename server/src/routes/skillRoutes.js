@@ -29,9 +29,13 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/', async (req, res) => {
-    const skill = new Skill(req.body);
-    await skill.save();
-    res.status(201).json(skill);
+    try {
+        const skill = new Skill(req.body);
+        await skill.save();
+        res.status(201).json(skill);
+    } catch (error) {
+        res.status(400).json({ message: 'Failed to create skill'});
+    }
 });
 
 export default router;
