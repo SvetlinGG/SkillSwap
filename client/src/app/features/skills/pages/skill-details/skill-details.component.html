@@ -1,8 +1,18 @@
-<div>
-  @if (skill) {
-    <h2>{{ skill.title }}</h2>
-    <p>{{ skill.description }}</p>
-    <p>Category: {{ skill.category }}</p>
-    <p>Level: {{ skill.level }}</p>
-  }
-</div>
+<section class="details-wrapper">
+  @if (!isLoading && skill) {
+  <h2>{{ skill.title }}</h2>
+
+  <p><strong>Category:</strong> {{ skill.category }}</p>
+  <p><strong>Level:</strong> {{ skill.level }}</p>
+  <p><strong>Description:</strong></p>
+  <p>{{ skill.description }}</p>
+
+  <div class="actions">
+    <a [routerLink]="['/skills/edit', skill._id]" class="btn edit-btn">Edit</a>
+    <button type="button" class="btn delete-btn" (click)="onDelete()">Delete</button>
+  </div>
+}
+</section>
+
+
+
