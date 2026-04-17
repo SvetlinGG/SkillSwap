@@ -38,4 +38,22 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedSkill = await Skill.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true}
+        );
+
+        if(!updatedSkill){
+            return res.status(404).json({ message: 'Skill not found'});
+        }
+
+        res.json(updatedSkill);
+    } catch (error) {
+        res.status(400).json({ message: 'Failed to update skill'})
+    }
+})
+
 export default router;
