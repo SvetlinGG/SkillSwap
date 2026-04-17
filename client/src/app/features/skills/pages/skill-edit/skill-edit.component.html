@@ -1,0 +1,41 @@
+<section class="form-wrapper">
+    @if (!isLoading) { 
+    <h2>Edit Skill</h2>
+  
+    <form #form="ngForm" (ngSubmit)="submit()">
+      <input
+        type="text"
+        name="title"
+        [(ngModel)]="skill.title"
+        placeholder="Title"
+        required
+        minlength="3"
+      />
+  
+      <textarea
+        name="description"
+        [(ngModel)]="skill.description"
+        placeholder="Description"
+        required
+        minlength="10"
+        rows="6"
+      ></textarea>
+  
+      <input
+        type="text"
+        name="category"
+        [(ngModel)]="skill.category"
+        placeholder="Category"
+        required
+      />
+  
+      <select name="level" [(ngModel)]="skill.level" required>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+  
+      <button type="submit" [disabled]="form.invalid">Save Changes</button>
+    </form>
+}
+  </section>
