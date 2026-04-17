@@ -7,5 +7,6 @@ export interface Skill {
     category: string;
     level: 'Beginner' | 'Intermediate' | 'Advanced';
     owner: string;
-    createdAt?: Date;
+    createdAt?: string;
+    updatedAt?: string;
 }
