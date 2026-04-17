@@ -1,0 +1,20 @@
+
+.form-wrapper {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 24px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  input,
+  textarea,
+  select,
+  button {
+    padding: 12px;
+    font-size: 16px;
+  }

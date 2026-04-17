@@ -1,0 +1,28 @@
+
+.details-wrapper {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 24px;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 16px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .edit-btn {
+    background: #ffd54f;
+  }
+  
+  .delete-btn {
+    background: #ef5350;
+    color: white;
+  }
