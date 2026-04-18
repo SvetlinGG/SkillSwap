@@ -42,17 +42,24 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authMiddleware, async (req, res) => {
     try {
-        const updatedSkill = await Skill.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true, runValidators: true}
-        );
+        const updatedSkill = await Skill.findById(req.params.id);
 
         if(!updatedSkill){
             return res.status(404).json({ message: 'Skill not found'});
         }
+
+        if (updatedSkill.owner.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'You are not the owner of this skill'});
+        }
+
+        updatedSkill.title = req.body.title;
+        updatedSkill.description = req.body.description;
+        updatedSkill.category = req.body.category;
+        updatedSkill.level = req.body.level;
+
+        await updatedSkill.save();
 
         res.json(updatedSkill);
     } catch (error) {
@@ -60,13 +67,21 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, async (req, res) => {
     try {
-        const deletedSkill = await Skill.findByIdAndDelete(req.params.id);
+        const deletedSkill = await Skill.findById(req.params.id);
 
         if(!deletedSkill){
             return res.status(404).json({ message: 'Skill not found'});
         }
+
+
+        if (deletedSkill.owner.toString() !== req.user.id){
+            return res.status(403).json({ message: 'You are not the owner of this skill'});
+        }
+
+        await Skill.findByIdAndDelete(req.params.id);
+        
         res.json({message: 'Skill deleted successfully'});
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete skill'})
