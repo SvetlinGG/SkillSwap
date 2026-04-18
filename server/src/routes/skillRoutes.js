@@ -1,6 +1,7 @@
 import { Router } from 'express';
 //import { getSkills, getSkillById, createSkill } from '../controllers/skillController.js';
 import  Skill  from '../models/Skill.js'
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = Router();
 
@@ -28,10 +29,13 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     try {
-        const skill = new Skill(req.body);
-        await skill.save();
+        const skill = await Skill.create({
+            ...req.body,
+            owner: req.user.id
+        });
+        
         res.status(201).json(skill);
     } catch (error) {
         res.status(400).json({ message: 'Failed to create skill'});
