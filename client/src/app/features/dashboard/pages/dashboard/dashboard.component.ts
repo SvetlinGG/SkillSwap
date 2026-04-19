@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SkillsService } from '../../../skills/services/skills.service';
@@ -8,7 +8,7 @@ import { Skill } from '../../../skills/models/skill.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

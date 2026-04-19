@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
@@ -8,7 +8,7 @@ import { AuthService } from '../../../auth/auth.service';
 @Component({
   selector: 'app-skill-details',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './skill-details.component.html',
   styleUrl: './skill-details.component.css'
 })

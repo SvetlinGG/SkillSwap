@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Skill } from '../../models/skill.model';
@@ -9,7 +9,7 @@ import { AuthService } from '../../../auth/auth.service';
 @Component({
   selector: 'app-skill-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './skill-edit.component.html',
   styleUrl: './skill-edit.component.css'
 })
