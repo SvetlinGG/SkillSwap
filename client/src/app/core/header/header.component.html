@@ -1,15 +1,35 @@
 <header class="header">
+  <div class="header-container">
     <div class="logo">
       <a routerLink="/">SkillSwap</a>
     </div>
-  
-    <nav>
-      <a routerLink="/">Home</a>
-      <a routerLink="/skills">Catalog</a>
-      <a routerLink="/dashboard">Dashboard</a>
-      <a routerLink="/my-skills">My Skills</a>
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
-      <a routerLink="/register">Logout</a>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
+
+      <a routerLink="/skills" routerLinkActive="active">
+        Catalog
+      </a>
+
+      @if (isLoggedIn()) {
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/my-skills" routerLinkActive="active">My Skills</a>
+        <a routerLink="/skills/create" routerLinkActive="active">Create Skill</a>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        <a routerLink="/register" routerLinkActive="active">Register</a>
+      }
     </nav>
-  </header>
+
+    @if (isLoggedIn()) {
+      <div class="auth-box">
+        <span class="user-email">{{ userEmail() }}</span>
+        <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+    } @else {
+      <div class="guest-label">Guest</div>
+    }
+  </div>
+</header>
