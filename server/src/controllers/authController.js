@@ -15,7 +15,7 @@ const generateToken = (user) => {
 
 export const register = async (req, res) => {
     try {
-        const { email, password } =req.body;
+        const { email, password } = req.body;
 
         const existingUser = await User.findOne({email});
         if(existingUser){
@@ -29,13 +29,12 @@ export const register = async (req, res) => {
             password: hashedPassword
         });
 
-        const token = createToken(user);
+        const token = generateToken(user);
     
-        res.status(500).json({ 
+        res.status(201).json({ 
             id: user._id,
             email: user.email,
-            accessToken: token,
-            message: err.message
+            accessToken: token
         });
     } catch (error) {
         res.status(500).json({ message: 'Register failed'})
@@ -57,7 +56,7 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password'})
         }
 
-        const token = createToken(user);
+        const token = generateToken(user);
 
         res.json({
             id: user._id,
