@@ -5,6 +5,15 @@ import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = Router();
 
+router.get('/my-skills', authMiddleware, async (req, res) => {
+    try {
+        const skills = await Skill.find({owner: req.user.id}).sort({ createdAt: -1});
+        res.json(skills);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch your skills'})
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
         const skills = await Skill.find().sort({ createdAt: -1});
