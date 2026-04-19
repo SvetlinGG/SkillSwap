@@ -1,1 +1,46 @@
-<p>dashboard works!</p>
+<section class="dashboard">
+  <div class="welcome-box">
+    <h1>Welcome back, {{ userEmail() }}!</h1>
+    <p>Manage your skills and continue building your SkillSwap profile.</p>
+  </div>
+
+  <div class="stats-grid">
+    <article class="stat-card">
+      <h3>Total Skills</h3>
+      <p>{{ totalSkills() }}</p>
+    </article>
+
+    <article class="stat-card">
+      <h3>Quick Action</h3>
+      <a routerLink="/skills/create">Create Skill</a>
+    </article>
+
+    <article class="stat-card">
+      <h3>My Collection</h3>
+      <a routerLink="/my-skills">Go to My Skills</a>
+    </article>
+  </div>
+
+  <div class="latest-section">
+    <h2>Latest Added Skills</h2>
+
+    @if (isLoading()) {
+      <p>Loading dashboard...</p>
+    } @else if (latestSkills().length > 0) {
+      <div class="latest-grid">
+        @for (skill of latestSkills(); track skill._id) {
+          <article class="latest-card">
+            <h3>{{ skill.title }}</h3>
+            <p>{{ skill.category }}</p>
+            <a [routerLink]="['/skills', skill._id]">View Details</a>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="empty-box">
+        <p>No skills yet. Create your first one.</p>
+        <a routerLink="/skills/create">Create Skill</a>
+      </div>
+    }
+  </div>
+</section>
