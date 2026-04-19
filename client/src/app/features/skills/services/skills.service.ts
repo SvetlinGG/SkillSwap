@@ -16,6 +16,10 @@ export class SkillsService {
     return this.http.get<Skill[]>(this.apiUrl);
   }
 
+  getMySkills(): Observable<Skill[]> {
+    return this.http.get<Skill[]>(`${this.apiUrl}/my-skills`)
+  }
+
   getSkillById(id: string): Observable<Skill> {
     return this.http.get<Skill>(`${this.apiUrl}/${id}`);
   }
