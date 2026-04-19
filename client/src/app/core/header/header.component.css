@@ -1,36 +1,43 @@
 .header {
-  background: #222;
+  background: #111827;
   color: white;
-  padding: 16px 40px;
+  padding: 16px 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
 .header-container {
-  display: flex;
-  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
   align-items: center;
+  gap: 20px;
 }
 
 .logo a {
-  font-size: large;
-  color: antiquewhite;
-  font-weight: 900;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-.logo a:hover {
-  color: #00d4ff;
-}
-
-nav a {
-  margin-left: 20px;
   color: white;
   text-decoration: none;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-nav a:hover,
-nav a.active {
-  color: #00d4ff;
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+}
+
+.nav a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: #60a5fa;
 }
 
 .auth-box {
@@ -40,25 +47,36 @@ nav a.active {
 }
 
 .user-email {
-  color: antiquewhite;
-  font-size: 0.9rem;
+  font-size: 14px;
+  color: #cbd5e1;
 }
 
 .logout-btn {
-  background: transparent;
-  border: 1px solid #00d4ff;
-  color: #00d4ff;
-  padding: 4px 12px;
+  border: none;
+  background: #ef4444;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 4px;
+  font-size: 14px;
 }
 
 .logout-btn:hover {
-  background: #00d4ff;
-  color: #222;
+  background: #dc2626;
 }
 
 .guest-label {
-  color: #aaa;
-  font-size: 0.9rem;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .header-container {
+    grid-template-columns: 1fr;
+  }
+
+  .nav,
+  .auth-box {
+    justify-content: flex-start;
+  }
 }
