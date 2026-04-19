@@ -23,6 +23,13 @@ export const routes: Routes = [
             import('./features/auth/register/register.component').then(c => c.RegisterComponent)
     },
     {
+        path: 'dashboard',
+        canActivate: [authGuard],
+        loadComponent: () => 
+            import('./features/dashboard/pages/dashboard/dashboard.component')
+            .then(c => c.DashboardComponent)
+    },
+    {
         path: '**', 
         redirectTo: ''
     }
