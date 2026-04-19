@@ -15,3 +15,15 @@
   nav a:hover {
     color: #00d4ff;
   }
+
+  .logo a {
+    font-size: large;
+    color: antiquewhite;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+    
+  }
+  .logo a:hover{
+    color: #00d4ff;
+  }
