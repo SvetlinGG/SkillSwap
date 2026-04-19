@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { SkillsService } from '../../services/skills.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Skill } from '../../models/skill.model';
+
 
 @Component({
   selector: 'app-skill-create',
@@ -14,21 +14,22 @@ import { Skill } from '../../models/skill.model';
 })
 export class SkillCreateComponent {
 
-  skill: Skill = {
+  skill = {
     title: '',
     description: '',
     category: '',
     level: 'Beginner',
-    owner: 'temp-user-id'
   };
   constructor( 
     private skillsService: SkillsService, 
     private router: Router
   ) {}
 
-  submit(){
-    this.skillsService.createSkill(this.skill).subscribe({
-      next: () => this.router.navigate(['/skills']),
+  submit(): void{
+    this.skillsService.createSkill(this.skill as any).subscribe({
+      next: (createdSkill) => {
+        this.router.navigate(['/skills', createdSkill._id]);
+      },
       error: (err) => alert(err.error?.message || 'Failed to create skill')
     });
   }

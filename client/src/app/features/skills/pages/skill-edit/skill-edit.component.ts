@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Skill } from '../../models/skill.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-skill-edit',
@@ -27,7 +28,8 @@ export class SkillEditComponent implements OnInit {
   constructor( 
     private route: ActivatedRoute, 
     private router: Router, 
-    private skillsService: SkillsService
+    private skillsService: SkillsService,
+    private authService: AuthService,
   ){}
 
 
@@ -41,16 +43,20 @@ export class SkillEditComponent implements OnInit {
 
     this.skillsService.getSkillById(id).subscribe({
       next: (data) => {
+        const currentUserId = this.authService.getCurrentUserId();
+
+        if (data.owner !== currentUserId){
+          this.router.navigate(['/skills', id]);
+        }
+
         this.skill = data;
         this.isLoading = false;
       },
-      error: () => {
-        this.router.navigate(['/skills']);
-      }
+      error: () => this.router.navigate(['/skills'])
     });
   }
 
-  submit(){
+  submit(): void{
     const id = this.route.snapshot.paramMap.get('id');
 
     if (!id){
@@ -61,9 +67,8 @@ export class SkillEditComponent implements OnInit {
       next: (updatedSkill) => {
         this.router.navigate(['/skills', updatedSkill._id]);
       },
-      error: (err) => {
-        alert(err.error?.message || 'Failed to update skill')
-      }
+      error: (err) => alert(err.error?.message || 'Failed to update skill')
+      
     });
   }
 }

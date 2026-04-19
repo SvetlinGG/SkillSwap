@@ -1,14 +1,15 @@
 <section class="details-wrapper">
-  @if (!isLoading && skill) {
-  <h2>{{ skill.title }}</h2>
+  @if (!isLoading && skill()) {
+  <h2>{{ skill()!.title }}</h2>
 
-  <p><strong>Category:</strong> {{ skill.category }}</p>
-  <p><strong>Level:</strong> {{ skill.level }}</p>
+  <p><strong>Category:</strong> {{ skill()!.category }}</p>
+  <p><strong>Level:</strong> {{ skill()!.level }}</p>
   <p><strong>Description:</strong></p>
-  <p>{{ skill.description }}</p>
-
+  <p>{{ skill()!.description }}</p>
+  }
+  @if (isOwner()) {
   <div class="actions">
-    <a [routerLink]="['/skills/edit', skill._id]" class="btn edit-btn">Edit</a>
+    <a [routerLink]="['/skills/edit', skill()!._id]" class="btn edit-btn">Edit</a>
     <button type="button" class="btn delete-btn" (click)="onDelete()">Delete</button>
   </div>
 }

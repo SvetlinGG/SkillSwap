@@ -16,16 +16,20 @@ export class SkillsService {
     return this.http.get<Skill[]>(this.apiUrl);
   }
 
+  getMySkills(): Observable<Skill[]> {
+    return this.http.get<Skill[]>(`${this.apiUrl}/my-skills`)
+  }
+
   getSkillById(id: string): Observable<Skill> {
     return this.http.get<Skill>(`${this.apiUrl}/${id}`);
   }
 
-  createSkill(skill: Skill): Observable<Skill>{
-    return this.http.post<Skill>(this.apiUrl, skill)
+  createSkill(skillData: Omit<Skill, '_id' | 'owner' | 'createdAt' | 'updatedAt'>): Observable<Skill>{
+    return this.http.post<Skill>(this.apiUrl, skillData)
   }
 
-  updateSkill(id: string, skill: Skill): Observable<Skill>{
-    return this.http.put<Skill>(`${this.apiUrl}/${id}`, skill);
+  updateSkill(id: string, skillData: Partial<Skill>): Observable<Skill>{
+    return this.http.put<Skill>(`${this.apiUrl}/${id}`, skillData);
   }
 
   deleteSkill(id: string): Observable<{message: string}>{
