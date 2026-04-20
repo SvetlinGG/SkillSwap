@@ -22,8 +22,14 @@ export class RegisterComponent {
       email: this.email,
       password: this.password
     }).subscribe({
-      next: () => this.router.navigate(['/']),
-      error: (err) => alert(err.error.message)
+      next: (response) => {
+        console.log('REGISTER SUCCESS:', response);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error('REGISTER ERROR', err);
+        alert(err?.error?.message || err?.message || 'Registration failed')
+      }
     });
     
     

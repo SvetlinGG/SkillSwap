@@ -19,10 +19,18 @@ export class LoginComponent {
 
 
   login(){
-    this.auth.login({email: this.email, password: this.password})
-      .subscribe({
-        next: () => this.router.navigate(['/']),
-        error: (err) => alert(err.error.message)
+    this.auth.login({
+      email: this.email, 
+      password: this.password
+    }).subscribe({
+        next: (response) => {
+          console.log('LOGIN SUCCESS:', response );
+          this.router.navigate(['/'])
+        },
+        error: (err) => {
+          console.error('LOGIN ERROR:', err);
+          alert(err?.error?.message || err?.message || 'Login failed')
+        }
       });
     
   }

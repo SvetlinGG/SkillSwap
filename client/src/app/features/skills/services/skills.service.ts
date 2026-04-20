@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class SkillsService {
   
-  private apiUrl = 'http://localhost:5000/api/skills'
+  private apiUrl = 'http://127.0.0.1:5050/api/skills'
 
   constructor(private http: HttpClient) { }
 

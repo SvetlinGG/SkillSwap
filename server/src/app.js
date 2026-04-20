@@ -5,11 +5,21 @@ import skillRoutes from './routes/skillRoutes.js';
 
 export const app = express();
 
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+    console.log('REQ:', req.method, req.url);
+    next();
+  });
 
 app.use('/api/auth', authRoutes);
 app.use('/api/skills', skillRoutes);
+
 app.get('/', (req, res) => {
-    res.send('SkillSwap API is running')
-})
+  res.send('ROOT OK');
+});
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API works' });
+});
