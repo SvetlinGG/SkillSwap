@@ -7,7 +7,7 @@ import { AuthUser } from '../skills/models/auth-user.model';
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  private apiUrl = 'http://localhost:5000/api/auth';
+  private apiUrl = 'http://127.0.0.1:5050/api/auth';
 
   user = signal<AuthUser | null>(this.getUserFromStorage());
   isLoggedIn = computed(() => !!this.user());
