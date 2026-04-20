@@ -4,6 +4,8 @@
       <a routerLink="/">SkillSwap</a>
     </div>
 
+    
+
     <nav class="nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         Home
@@ -14,10 +16,12 @@
       </a>
 
       @if (isLoggedIn()) {
+        
         <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
         <a routerLink="/my-skills" routerLinkActive="active">My Skills</a>
         <a routerLink="/skills/create" routerLinkActive="active">Create Skill</a>
       } @else {
+        <span class="user-email">Hello, {{ userEmail() }}</span>
         <a routerLink="/login" routerLinkActive="active">Login</a>
         <a routerLink="/register" routerLinkActive="active">Register</a>
       }
