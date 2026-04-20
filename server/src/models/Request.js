@@ -32,4 +32,4 @@ const requestSchema = new mongoose.Schema(
       
 )
 
-export const Request = mongoose.model('Request', userSchema);
+export const Request = mongoose.model('Request', requestSchema);
