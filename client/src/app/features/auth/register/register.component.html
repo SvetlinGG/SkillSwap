@@ -5,18 +5,32 @@
        <div class="text">
           REGISTER
        </div>
-       <form (ngSubmit)="register()">
+       <form [formGroup]="registerForm" (ngSubmit)="register()">
         <div class="field">
           <div class="fas fa-envelope"></div>
-          <input type="name" placeholder="Name" [(ngModel)]="name" name="name">
+          <input 
+            type="name" 
+            placeholder="Name" 
+            [(ngModel)]="name" 
+            name="name">
        </div>
           <div class="field">
              <div class="fas fa-envelope"></div>
-             <input type="email" placeholder="Email" [(ngModel)]="email" name="email">
+             <input 
+               id="email"
+               type="email"   
+               placeholder="enter your email" 
+               formControlName="email" 
+               name="email">
           </div>
           <div class="field">
              <div class="fas fa-lock"></div>
-             <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
+             <input 
+               id="password"
+               type="password" 
+               placeholder="enter password" 
+               formControlName="password" 
+               name="password">
           </div>
           <div class="field">
             <div class="fas fa-lock"></div>
