@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { Skill } from '../../models/skill.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
@@ -9,23 +9,18 @@ import { AuthService } from '../../../auth/auth.service';
 @Component({
   selector: 'app-skill-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [],
   templateUrl: './skill-edit.component.html',
   styleUrl: './skill-edit.component.css'
 })
 export class SkillEditComponent implements OnInit {
 
-  skill: Skill = {
-    title: '',
-    description: '',
-    category: '',
-    level: 'Beginner',
-    owner: ''
-  };
+  
 
-  isLoading = true;
+  isLoading = signal(true);
 
   constructor( 
+    private fb: FormBuilder,
     private route: ActivatedRoute, 
     private router: Router, 
     private skillsService: SkillsService,
