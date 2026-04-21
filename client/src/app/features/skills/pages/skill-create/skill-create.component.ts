@@ -1,9 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SkillsService } from '../../services/skills.service';
 import { Router, RouterLink } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-skill-create',
@@ -14,16 +12,14 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class SkillCreateComponent {
 
-  constructor( 
-    private fb: FormBuilder,
-    private skillsService: SkillsService, 
-    private router: Router
-  ) {}
+  private fb = inject(FormBuilder);
+  private skillsService = inject(SkillsService);
+  private router = inject(Router);
 
   errorMessage = signal('');
   isSubmitting = signal(false);
 
-  createForm = this.fb.control({
+  createForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
     description: ['', [Validators.required, Validators.minLength(10)]],
     category: ['', [Validators.required]],
