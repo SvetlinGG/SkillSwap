@@ -1,5 +1,4 @@
 
-
   <body>
     <div class="login-form">
        <div class="text">
@@ -9,10 +8,10 @@
         <div class="field">
           <div class="fas fa-envelope"></div>
           <input 
-            type="name" 
+            type="text" 
             placeholder="Name" 
-            [(ngModel)]="name" 
-            name="name">
+            formControlName="name" 
+            />
        </div>
           <div class="field">
              <div class="fas fa-envelope"></div>
@@ -21,7 +20,8 @@
                type="email"   
                placeholder="enter your email" 
                formControlName="email" 
-               name="email">
+               name="email" 
+               />
           </div>
           <div class="field">
              <div class="fas fa-lock"></div>
@@ -34,12 +34,31 @@
           </div>
           <div class="field">
             <div class="fas fa-lock"></div>
-            <input type="password" placeholder="Re-Password" [(ngModel)]="password" name="password">
+            <input 
+               type="password" 
+               placeholder="re-password" 
+               formControlName="password" 
+               name="password" 
+               />
+
+               @if (password?.touched && password?.errors?.['required']) {
+                 <p class="error">Password is required.</p>
+               }
+               @if (password?.touched && password?.errors?.['minlength']) {
+                 <p class="error">Password must be at least 6 characters long.</p>
+               }
          </div>
-          <button>REGISTER</button>
+
+         @if (errorMessage()) {
+           <p class="server-error">{{ errorMessage() }}</p>
+         }
+         
+          <button type="submit" [disabled]="registerForm.invalid || isSubmitting()">
+            {{ isSubmitting() ? 'Creating account...' : 'Register' }}
+          </button>
           <div class="link">
-             Not a member?
-             <a href="#">Signup now</a>
+            Already have an account?
+             <a routerLink="/login">Login</a>
           </div>
        </form>
     </div>
