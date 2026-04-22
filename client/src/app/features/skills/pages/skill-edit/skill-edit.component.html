@@ -1,41 +1,77 @@
-<section class="form-wrapper">
-    @if (!isLoading) { 
+<section class="skill-form-page">
+  <div class="skill-form-card">
     <h2>Edit Skill</h2>
-  
-    <form #form="ngForm" (ngSubmit)="submit()">
-      <input
-        type="text"
-        name="title"
-        [(ngModel)]="skill.title"
-        placeholder="Title"
-        required
-        minlength="3"
-      />
-  
-      <textarea
-        name="description"
-        [(ngModel)]="skill.description"
-        placeholder="Description"
-        required
-        minlength="10"
-        rows="6"
-      ></textarea>
-  
-      <input
-        type="text"
-        name="category"
-        [(ngModel)]="skill.category"
-        placeholder="Category"
-        required
-      />
-  
-      <select name="level" [(ngModel)]="skill.level" required>
-        <option value="Beginner">Beginner</option>
-        <option value="Intermediate">Intermediate</option>
-        <option value="Advanced">Advanced</option>
-      </select>
-  
-      <button type="submit" [disabled]="form.invalid">Save Changes</button>
-    </form>
-}
-  </section>
+    <p class="subtitle">Update your skill details</p>
+
+    @if (isLoading()) {
+      <p>Loading skill...</p>
+    } @else {
+      <form [formGroup]="editForm" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            id="title"
+            type="text"
+            formControlName="title"
+            placeholder="e.g. Angular Basics"
+          />
+          @if (title?.touched && title?.errors?.['required']) {
+            <p class="error">Title is required.</p>
+          }
+          @if (title?.touched && title?.errors?.['minlength']) {
+            <p class="error">Title must be at least 3 characters long.</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            rows="6"
+            formControlName="description"
+            placeholder="Describe what you can teach..."
+          ></textarea>
+          @if (description?.touched && description?.errors?.['required']) {
+            <p class="error">Description is required.</p>
+          }
+          @if (description?.touched && description?.errors?.['minlength']) {
+            <p class="error">Description must be at least 10 characters long.</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <input
+            id="category"
+            type="text"
+            formControlName="category"
+            placeholder="e.g. Programming"
+          />
+          @if (category?.touched && category?.errors?.['required']) {
+            <p class="error">Category is required.</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="level">Level</label>
+          <select id="level" formControlName="level">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+          @if (level?.touched && level?.errors?.['required']) {
+            <p class="error">Level is required.</p>
+          }
+        </div>
+
+        @if (errorMessage()) {
+          <p class="server-error">{{ errorMessage() }}</p>
+        }
+
+        <button type="submit" [disabled]="editForm.invalid || isSubmitting()">
+          {{ isSubmitting() ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </form>
+    }
+  </div>
+</section>
