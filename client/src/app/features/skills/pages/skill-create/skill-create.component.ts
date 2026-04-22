@@ -65,7 +65,7 @@ export class SkillCreateComponent {
       },
       error: (err) => {
         this.isSubmitting.set(false);
-        this.errorMessage.set(err?.error?.message || 'Failed to create skill')
+        this.errorMessage.set(err.message || 'Failed to create skill')
       }
     });
   }

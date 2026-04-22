@@ -107,7 +107,7 @@ export class SkillEditComponent implements OnInit {
       },
       error: (err) => {
         this.isSubmitting.set(false);
-        this.errorMessage.set(err.error?.message || 'Failed to update skill')
+        this.errorMessage.set(err.message || 'Failed to update skill')
       }
     });
   }

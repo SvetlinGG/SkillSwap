@@ -26,7 +26,7 @@ export class MySkillsComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.errorMessage.set(err.error?.message || 'Failed to load your skills');
+        this.errorMessage.set(err.message || 'Failed to load your skills');
         this.isLoading.set(false);
       }
     });

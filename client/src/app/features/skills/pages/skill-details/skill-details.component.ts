@@ -68,7 +68,7 @@ export class SkillDetailsComponent implements OnInit  {
 
     this.skillsService.deleteSkill(currentSkill._id).subscribe({
       next: () => this.router.navigate(['/skills']),
-      error: (err) => alert(err.error?.message || 'Failed to delete skill')
+      error: (err) => alert(err.message || 'Failed to delete skill')
       
     });
   }
