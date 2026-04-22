@@ -1,20 +1,116 @@
+.skill-form-page {
+  min-height: 100vh;
+  background: #f4f6fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
 
-.form-wrapper {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 24px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  input,
-  textarea,
-  select,
-  button {
-    padding: 12px;
-    font-size: 16px;
-  }
+.skill-form-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 580px;
+}
+
+.skill-form-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 0.95rem;
+  margin: 0 0 28px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 12px 16px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  background: #fafafa;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+  background: #fff;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.error {
+  font-size: 0.82rem;
+  color: #e53935;
+  margin: 0;
+}
+
+.server-error {
+  font-size: 0.88rem;
+  color: #e53935;
+  background: #fdecea;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 0;
+}
+
+button[type='submit'] {
+  padding: 13px;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button[type='submit']:hover:not(:disabled) {
+  background: #00d4ff;
+  color: #1a1a2e;
+  transform: translateY(-2px);
+}
+
+button[type='submit']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
