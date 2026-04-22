@@ -1,5 +1,5 @@
 <section class="details-wrapper">
-  @if (!isLoading && skill()) {
+  @if (!isLoading() && skill()) {
   <h2>{{ skill()!.title }}</h2>
 
   <p><strong>Category:</strong> {{ skill()!.category }}</p>

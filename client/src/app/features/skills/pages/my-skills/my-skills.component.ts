@@ -1,13 +1,14 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
 import { Skill } from '../../models/skill.model';
+import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 
 @Component({
   selector: 'app-my-skills',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink, TruncatePipe],
   templateUrl: './my-skills.component.html',
   styleUrl: './my-skills.component.css'
 })

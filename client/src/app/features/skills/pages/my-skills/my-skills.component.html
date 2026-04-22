@@ -1,19 +1,33 @@
-<header class="header">
-  <div class="logo">
-    <a routerLink="/">SkillSwap</a>
+<section class="my-skills-page">
+  <div class="page-header">
+    <h2>My Skills</h2>
+    <a routerLink="/skills/create" class="create-btn">Create New Skill</a>
   </div>
 
-  <nav>
-    <a routerLink="/">Home</a>
-    <a routerLink="/skills">Catalog</a>
-
-    @if (isLoggedIn()) {
-      <a routerLink="/dashboard">Dashboard</a>
-      <a routerLink="/my-skills">My Skills</a>
-      <a (click)="logout()" style="cursor:pointer">Logout</a>
-    } @else {
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
-    }
-  </nav>
-</header>
+  @if (isLoading()) {
+    <p>Loading your skills...</p>
+  } @else if (errorMessage()) {
+    <p>{{ errorMessage() }}</p>
+  } @else if (mySkills().length > 0) {
+    <div class="skills-grid">
+      @for (skill of mySkills(); track skill._id) {
+        <article class="skill-card">
+          <h3>{{ skill.title }}</h3>
+          <p><strong>Category:</strong> {{ skill.category }}</p>
+          <p><strong>Level:</strong> {{ skill.level }}</p>
+          <p>{{ skill.description | truncate:80}}</p>
+          <div class="actions">
+            <a [routerLink]="['/skills', skill._id]">Details</a>
+            <a [routerLink]="['/skills/edit', skill._id]">Edit</a>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <h3>You haven't created any skills yet.</h3>
+      <p>Start by creating your first skill.</p>
+      <a routerLink="/skills/create" class="create-btn">Create Skill</a>
+    </div>
+  }
+</section>
