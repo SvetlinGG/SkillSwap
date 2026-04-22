@@ -1,14 +1,14 @@
 
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
 import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-skill-edit',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './skill-edit.component.html',
   styleUrl: './skill-edit.component.css'
 })
@@ -59,20 +59,37 @@ export class SkillEditComponent implements OnInit {
     }
 
     this.skillsService.getSkillById(id).subscribe({
-      next: (data) => {
+      next: (skill) => {
         const currentUserId = this.authService.getCurrentUserId();
 
-        if (data.owner !== currentUserId){
+        if (skill.owner !== currentUserId){
           this.router.navigate(['/skills', id]);
+          return;
         }
+        this.editForm.patchValue({
+          title: skill.title,
+          description: skill.description,
+          category: skill.category,
+          level: skill.level
+        });
 
-        
+        this.isLoading.set(false);
+
       },
-      error: () => this.router.navigate(['/skills'])
+      error: (err) => {
+        this.errorMessage.set(err?.error?.message || 'Failed to load skill');
+        this.isLoading.set(false);
+      }
     });
   }
 
   submit(): void{
+
+    if(this.editForm.invalid){
+      this.editForm.markAllAsTouched();
+      return;
+    }
+
     const id = this.route.snapshot.paramMap.get('id');
 
     if (!id){
