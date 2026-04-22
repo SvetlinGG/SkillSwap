@@ -1,27 +1,23 @@
-import { Component, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  
-
-  constructor(
-    private fb: FormBuilder,
-    private auth: AuthService, 
-    private router: Router
-  ){}
+  private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
   errorMessage = signal('');
-  isSubmitted = signal(true);
+  isSubmitting = signal(false);
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -42,25 +38,23 @@ export class LoginComponent {
       return;
     }
     this.errorMessage.set('');
-    this.isSubmitted.set(true);
+    this.isSubmitting.set(true);
 
     const {email, password } = this.loginForm.getRawValue();
-
 
     this.auth.login({
       email: email || '', 
       password: password || ''
     }).subscribe({
         next: () => {
-          this.isSubmitted.set(false);
+          this.isSubmitting.set(false);
           this.router.navigate(['/dashboard'])
         },
         error: (err) => {
-          this.isSubmitted.set(false);
+          this.isSubmitting.set(false);
           this.errorMessage.set(err?.error?.message || err?.message || 'Login failed')
         }
       });
-    
   }
 
 }

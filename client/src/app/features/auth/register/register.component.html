@@ -1,32 +1,57 @@
+<body>
+  <div class="login-form">
+    <div class="text">REGISTER</div>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
 
+      <div class="field">
+        <div class="fas fa-envelope"></div>
+        <input
+          id="name"
+          type="text"
+          placeholder="Name"
+          formControlName="name"
+        />
+      </div>
 
-  <body>
-    <div class="login-form">
-       <div class="text">
-          REGISTER
-       </div>
-       <form (ngSubmit)="register()">
-        <div class="field">
-          <div class="fas fa-envelope"></div>
-          <input type="name" placeholder="Name" [(ngModel)]="name" name="name">
-       </div>
-          <div class="field">
-             <div class="fas fa-envelope"></div>
-             <input type="email" placeholder="Email" [(ngModel)]="email" name="email">
-          </div>
-          <div class="field">
-             <div class="fas fa-lock"></div>
-             <input type="password" placeholder="Password" [(ngModel)]="password" name="password">
-          </div>
-          <div class="field">
-            <div class="fas fa-lock"></div>
-            <input type="password" placeholder="Re-Password" [(ngModel)]="password" name="password">
-         </div>
-          <button>REGISTER</button>
-          <div class="link">
-             Not a member?
-             <a href="#">Signup now</a>
-          </div>
-       </form>
-    </div>
- </body>
+      <div class="field">
+        <div class="fas fa-envelope"></div>
+        <input
+          id="email"
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+        />
+      </div>
+
+      <div class="field">
+        <div class="fas fa-lock"></div>
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+        @if (password?.touched && password?.errors?.['required']) {
+          <p class="error">Password is required.</p>
+        }
+        @if (password?.touched && password?.errors?.['minlength']) {
+          <p class="error">Password must be at least 6 characters long.</p>
+        }
+      </div>
+
+      @if (errorMessage()) {
+        <p class="server-error">{{ errorMessage() }}</p>
+      }
+
+      <button type="submit" [disabled]="registerForm.invalid || isSubmitting()">
+        {{ isSubmitting() ? 'Creating account...' : 'Register' }}
+      </button>
+
+      <div class="link">
+        Already have an account?
+        <a routerLink="/login">Login</a>
+      </div>
+
+    </form>
+  </div>
+</body>
