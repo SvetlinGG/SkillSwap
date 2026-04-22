@@ -12,12 +12,25 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class LoginComponent {
 
+<<<<<<< Updated upstream
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
 
   errorMessage = signal('');
   isSubmitting = signal(false);
+=======
+  
+
+  
+    private fb =  inject(FormBuilder);
+    private auth =  inject(AuthService); 
+    private router = inject(Router);
+  
+
+  errorMessage = signal('');
+  isSubmitting = signal(true);
+>>>>>>> Stashed changes
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
