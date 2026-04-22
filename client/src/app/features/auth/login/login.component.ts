@@ -1,36 +1,23 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-<<<<<<< Updated upstream
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
 
   errorMessage = signal('');
   isSubmitting = signal(false);
-=======
-  
-
-  
-    private fb =  inject(FormBuilder);
-    private auth =  inject(AuthService); 
-    private router = inject(Router);
-  
-
-  errorMessage = signal('');
-  isSubmitting = signal(true);
->>>>>>> Stashed changes
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -68,7 +55,6 @@ export class LoginComponent {
           this.errorMessage.set(err?.error?.message || err?.message || 'Login failed')
         }
       });
-    
   }
 
 }
