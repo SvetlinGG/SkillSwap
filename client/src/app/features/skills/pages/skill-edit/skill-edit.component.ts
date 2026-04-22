@@ -1,36 +1,49 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Skill } from '../../models/skill.model';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
 import { AuthService } from '../../../auth/auth.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-skill-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './skill-edit.component.html',
   styleUrl: './skill-edit.component.css'
 })
 export class SkillEditComponent implements OnInit {
 
-  skill: Skill = {
-    title: '',
-    description: '',
-    category: '',
-    level: 'Beginner',
-    owner: ''
-  };
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private skillsService = inject(SkillsService);
+  private authService = inject(AuthService);
 
-  isLoading = true;
 
-  constructor( 
-    private route: ActivatedRoute, 
-    private router: Router, 
-    private skillsService: SkillsService,
-    private authService: AuthService,
-  ){}
+  isLoading = signal(true);
+  isSubmitting = signal(false);
+  errorMessage = signal('');
+
+  editForm = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(3)]],
+    description: ['', [Validators.required, Validators.minLength(10)]],
+    category: ['', [Validators.required]],
+    level: ['Beginner', [Validators.required]]
+  });
+
+  get title(){
+    return this.editForm.get('title');
+  }
+  get description(){
+    return this.editForm.get('description');
+  }
+  get category(){
+    return this.editForm.get('category');
+  }
+  get level(){
+    return this.editForm.get('level');
+  }
 
 
   ngOnInit(): void {
@@ -42,33 +55,60 @@ export class SkillEditComponent implements OnInit {
     }
 
     this.skillsService.getSkillById(id).subscribe({
-      next: (data) => {
+      next: (skill) => {
         const currentUserId = this.authService.getCurrentUserId();
 
-        if (data.owner !== currentUserId){
+        if (skill.owner !== currentUserId){
           this.router.navigate(['/skills', id]);
         }
 
-        this.skill = data;
-        this.isLoading = false;
+        this.editForm.patchValue({
+          title: skill.title,
+          description: skill.description,
+          category: skill.category,
+          level: skill.level
+        });
+        this.isLoading.set(false);
       },
-      error: () => this.router.navigate(['/skills'])
+      error: (err) => {
+        this.errorMessage.set(err?.error?.message || 'Failed to load skill');
+        this.isLoading.set(false);
+      }
     });
   }
 
   submit(): void{
+
+    if(this.editForm.invalid){
+      this.editForm.markAllAsTouched();
+      return;
+    }
+
     const id = this.route.snapshot.paramMap.get('id');
 
     if (!id){
       return;
     }
 
-    this.skillsService.updateSkill(id, this.skill).subscribe({
+    this.errorMessage.set('');
+    this.isSubmitting.set(true);
+
+    const skillData = this.editForm.getRawValue();
+
+    this.skillsService.updateSkill(id, {
+      title: skillData.title || '',
+      description: skillData.description || '',
+      category: skillData.category || '',
+      level: (skillData.level as 'Beginner' | 'Intermediate' | 'Advanced') || 'Beginner'
+    }).subscribe({
       next: (updatedSkill) => {
+        this.isSubmitting.set(false);
         this.router.navigate(['/skills', updatedSkill._id]);
       },
-      error: (err) => alert(err.error?.message || 'Failed to update skill')
-      
+      error: (err) => {
+        this.isSubmitting.set(false);
+        this.errorMessage.set(err.error?.message || 'Failed to update skill')
+      }
     });
   }
 }
