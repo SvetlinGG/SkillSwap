@@ -159,5 +159,5 @@ Used to shorten long descriptions in catalog, dashboard, and my-skills pages.
 
 ## 👨‍💻 Author
 
-**[Svetlin Garabedyan]**
+Svetlin Garabedyan
 
