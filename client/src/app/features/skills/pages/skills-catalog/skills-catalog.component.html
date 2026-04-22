@@ -8,8 +8,10 @@
       @for (skill of skills; track $index) {
         <article class="skill-card">
           <h3>{{ skill.title }}</h3>
-          <p>{{ skill.category }}</p>
-          <p>{{ skill.level }}</p>
+          <p><strong>Category:</strong> {{ skill.category }}</p>
+          <p><strong>Level:</strong> {{ skill.level }}</p>
+          <p>{{ skill.description | truncate:90}}</p>
+          
           <a [routerLink]="['/skills', skill._id]">Details</a>
         </article>
       }
