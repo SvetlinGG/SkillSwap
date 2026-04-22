@@ -34,7 +34,7 @@ export class SkillsCatalogComponent implements OnInit {
     return ['All', ...Array.from(uniqueCategories)];
   });
 
-  filteredSkill = computed(() => {
+  filteredSkills = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();
     const level = this.selectedLevel();
     const category = this.selectedCategory();

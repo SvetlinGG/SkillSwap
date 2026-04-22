@@ -1,22 +1,79 @@
-<section class="catalog">
-  <h2>Skills Catalog</h2>
+<section class="catalog-page">
+  <div class="catalog-header">
+    <div>
+      <h2>Skills Catalog</h2>
+      <p class="subtitle">Browse and discover skills shared by the community.</p>
+    </div>
+    <a routerLink="/skills/create" class="create-btn">Create Skill</a>
+  </div>
 
-  <a routerLink="/skills/create" class="create-btn">Create Skill</a>
+  <div class="filters-box">
+    <div class="filter-group">
+      <label for="search">Search</label>
+      <input
+        id="search"
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="onSearchChange($event)"
+        placeholder="Search by title, category or description"
+      />
+    </div>
 
-  @if (skills.length > 0) {
+    <div class="filter-group">
+      <label for="level">Level</label>
+      <select
+        id="level"
+        [ngModel]="selectedLevel()"
+        (ngModelChange)="onLevelChange($event)"
+      >
+        <option value="All">All</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="category">Category</label>
+      <select
+        id="category"
+        [ngModel]="selectedCategory()"
+        (ngModelChange)="onCategoryChange($event)"
+      >
+        @for (category of categories(); track $index) {
+          <option [value]="category">{{ category }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <button type="button" class="clear-btn" (click)="clearFilters()">
+        Clear Filters
+      </button>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <p>Loading skills...</p>
+  } @else if (errorMessage()) {
+    <p class="server-error">{{ errorMessage() }}</p>
+  } @else if (filteredSkills().length > 0) {
     <div class="skills-grid">
-      @for (skill of skills; track $index) {
+      @for (skill of filteredSkills(); track skill._id) {
         <article class="skill-card">
           <h3>{{ skill.title }}</h3>
           <p><strong>Category:</strong> {{ skill.category }}</p>
           <p><strong>Level:</strong> {{ skill.level }}</p>
-          <p>{{ skill.description | truncate:90}}</p>
-          
-          <a [routerLink]="['/skills', skill._id]">Details</a>
+          <p>{{ skill.description | truncate:90 }}</p>
+          <a [routerLink]="['/skills', skill._id]" class="details-link">Details</a>
         </article>
       }
     </div>
   } @else {
-    <p>No skills yet.</p>
+    <div class="empty-state">
+      <h3>No matching skills found.</h3>
+      <p>Try changing the search term or filters.</p>
+      <button type="button" class="clear-btn" (click)="clearFilters()">Reset Filters</button>
+    </div>
   }
 </section>
