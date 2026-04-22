@@ -32,21 +32,32 @@ export class RegisterComponent {
     return this.registerForm.get('password');
   }
 
-  register(){
+  register(): void{
+
+    if(this.registerForm.invalid){
+      this.registerForm.markAllAsTouched();
+      return;
+    }
+
+    this.errorMessage.set('');
+    this.isSubmitting.set(true);
+
+    const { email, password } = this.registerForm.getRawValue();
+
+
     this.auth.register({
-      email: this.email,
-      password: this.password
+      email: email || '',
+      password: password || ''
     }).subscribe({
-      next: (response) => {
-        console.log('REGISTER SUCCESS:', response);
+      next: () => {
+        this.isSubmitting.set(false);
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        console.error('REGISTER ERROR', err);
-        alert(err?.error?.message || err?.message || 'Registration failed')
+        this.isSubmitting.set(false);
+        this.errorMessage.set(err?.error?.message || 'Registration failed')
       }
     });
-    
     
   }
 
