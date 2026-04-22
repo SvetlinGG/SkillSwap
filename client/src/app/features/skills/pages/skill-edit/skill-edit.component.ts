@@ -95,13 +95,25 @@ export class SkillEditComponent implements OnInit {
     if (!id){
       return;
     }
+    this.errorMessage.set('');
+    this.isSubmitting.set(true);
 
-    this.skillsService.updateSkill(id, this.skill).subscribe({
+    const skillData = this.editForm.getRawValue();
+
+    this.skillsService.updateSkill(id, {
+      title: skillData.title || '',
+      description: skillData.description || '',
+      category: skillData.category || '',
+      level: (skillData.level as 'Beginner' | 'Intermediate' | 'Advanced') || 'Beginner'
+      }).subscribe({
       next: (updatedSkill) => {
+        this.isSubmitting.set(false);
         this.router.navigate(['/skills', updatedSkill._id]);
       },
-      error: (err) => alert(err.error?.message || 'Failed to update skill')
-      
+      error: (err) => {
+        this.isSubmitting.set(false);
+        this.errorMessage.set((err.error?.message || 'Failed to update skill'))
+      }
     });
   }
 }
