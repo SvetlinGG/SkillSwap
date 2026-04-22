@@ -1,7 +1,6 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormsModule } from '@angular/forms';
-import { Skill } from '../../models/skill.model';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
 import { AuthService } from '../../../auth/auth.service';
@@ -16,16 +15,39 @@ import { AuthService } from '../../../auth/auth.service';
 export class SkillEditComponent implements OnInit {
 
   
+    private fb =  inject(FormBuilder);
+    private route =  inject(ActivatedRoute);
+    private router =  inject(Router);
+    private skillsService = inject(SkillsService);
+    private authService = inject(AuthService);
+  
 
   isLoading = signal(true);
+  isSubmitting = signal(true);
+  errorMessage = signal('');
 
-  constructor( 
-    private fb: FormBuilder,
-    private route: ActivatedRoute, 
-    private router: Router, 
-    private skillsService: SkillsService,
-    private authService: AuthService,
-  ){}
+  editForm = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(3)]],
+    description: ['', [Validators.required, Validators.minLength(10)]],
+    category: ['', [Validators.required]],
+    level: ['Beginner', [Validators.required]]
+  });
+
+  get title(){
+    return this.editForm.get('title');
+  }
+
+  get description(){
+    return this.editForm.get('description');
+  }
+
+  get category(){
+    return this.editForm.get('category');
+  }
+
+  get level(){
+    return this.editForm.get('level');
+  }
 
 
   ngOnInit(): void {
@@ -44,8 +66,7 @@ export class SkillEditComponent implements OnInit {
           this.router.navigate(['/skills', id]);
         }
 
-        this.skill = data;
-        this.isLoading = false;
+        
       },
       error: () => this.router.navigate(['/skills'])
     });
