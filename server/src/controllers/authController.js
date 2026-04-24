@@ -6,7 +6,8 @@ const generateToken = (user) => {
     return jwt.sign(
         { 
             _id: user._id, 
-            email: user.email
+            email: user.email,
+            username: user.username
         },
         process.env.JWT_SECRET,
         { expiresIn: '2h'}
@@ -18,9 +19,10 @@ export const register = async (req, res) => {
         console.log('REGISTER BODY:', req.body);
 
 
-        const { email, password } = req.body;
+        const { username, email, password } = req.body;
 
         const existingUser = await User.findOne({email});
+
         if(existingUser){
             return res.status(400).json({ message: 'User already exists'});
         }
@@ -30,6 +32,7 @@ export const register = async (req, res) => {
         console.log('HASHED PASSWORD CREATED');
 
         const user = await User.create({
+            username,
             email,
             password: hashedPassword
         });
@@ -40,8 +43,9 @@ export const register = async (req, res) => {
     
         res.status(201).json({ 
             id: user._id,
+            username: user.username,
             email: user.email,
-            accessToken: token
+            accessToken: createToken(user)
         });
     } catch (error) {
         console.error('REGISTER ERROR:', error);
@@ -68,10 +72,12 @@ export const login = async (req, res) => {
 
         res.json({
             id: user._id,
+            username: user.username,
             email: user.email,
             accessToken: token
         });
     } catch (error) {
-        res.status(500).json({ message: 'Login failed'});
+        console.error('LOGIN ERROR:', error);
+        res.status(500).json({ message: error.message || 'Login failed'});
     }
 };
