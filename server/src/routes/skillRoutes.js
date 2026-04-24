@@ -43,6 +43,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
+
 router.post('/', authMiddleware, async (req, res) => {
     try {
         const skill = await Skill.create({
@@ -53,6 +54,34 @@ router.post('/', authMiddleware, async (req, res) => {
         res.status(201).json(skill);
     } catch (error) {
         res.status(400).json({ message: 'Failed to create skill'});
+    }
+});
+
+router.post('/:id/like', authMiddleware, async (req, res) => {
+    try {
+        const skill = await Skill.findById(req.params.id);
+
+        if (!skill){
+            return res.status(404).json({ message: 'Skill not found'})
+        }
+
+        const userId = req.user.id;
+        const alreadyLiked = skill.likes.some((id) => id.toString() === userId);
+
+        if (alreadyLiked){
+            skill.likes = skill.likes.filter((id) => id.toString() !== userId);
+        }else{
+            skill.likes.push(userId);
+        }
+
+        await skill.save();
+
+        const updatedSkill = await Skill.findById(req.params.id)
+            .populate('owner', 'username email');
+        
+        res.json(updatedSkill);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update likes'})
     }
 });
 
