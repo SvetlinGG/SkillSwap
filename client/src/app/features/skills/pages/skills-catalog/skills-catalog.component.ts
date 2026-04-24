@@ -2,9 +2,10 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
+import { AuthService } from '../../../auth/auth.service';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 import { FormsModule } from '@angular/forms';
-import { Skill } from '../../models/skill.model';
+import { Skill, SkillOwner } from '../../models/skill.model';
 
 @Component({
   selector: 'app-skills-catalog',
@@ -16,6 +17,7 @@ import { Skill } from '../../models/skill.model';
 export class SkillsCatalogComponent implements OnInit {
 
   private skillsService = inject(SkillsService);
+  private authService = inject(AuthService);
   
   skills = signal<Skill[]>([]);
   isLoading = signal(true);
@@ -84,6 +86,30 @@ export class SkillsCatalogComponent implements OnInit {
     this.searchTerm.set('');
     this.selectedLevel.set('All');
     this.selectedCategory.set('All');
+  }
+
+  getOwnerUsername(owner: string | SkillOwner): string {
+    return typeof owner === 'object' ? owner.username : 'Unknown';
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  isLiked(skill: Skill): boolean {
+    const userId = this.authService.getCurrentUserId();
+    return !!userId && (skill.likes?.includes(userId) ?? false);
+  }
+
+  onLike(skill: Skill): void {
+    if (!skill._id) return;
+    this.skillsService.likeSkill(skill._id).subscribe({
+      next: (updated) => {
+        this.skills.update(skills =>
+          skills.map(s => s._id === updated._id ? updated : s)
+        );
+      }
+    });
   }
 
 }

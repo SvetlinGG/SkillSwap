@@ -20,9 +20,14 @@ export class RegisterComponent {
   isSubmitting = signal(false);
 
   registerForm = this.fb.group({
+    username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
+
+  get username(){
+    return this.registerForm.get('username');
+  }
 
   get email(){
     return this.registerForm.get('email');
@@ -42,10 +47,10 @@ export class RegisterComponent {
     this.errorMessage.set('');
     this.isSubmitting.set(true);
 
-    const { email, password } = this.registerForm.getRawValue();
-
+    const { username, email, password } = this.registerForm.getRawValue();
 
     this.auth.register({
+      username: username || '',
       email: email || '',
       password: password || ''
     }).subscribe({

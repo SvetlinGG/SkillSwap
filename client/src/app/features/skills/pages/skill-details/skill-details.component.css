@@ -26,3 +26,27 @@
     background: #ef5350;
     color: white;
   }
+
+.like-section {
+  margin-top: 20px;
+}
+
+.like-btn {
+  background: none;
+  border: 2px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 8px 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.1s;
+}
+
+.like-btn:hover {
+  border-color: #e53935;
+  transform: scale(1.05);
+}
+
+.like-btn.liked {
+  border-color: #e53935;
+  color: #e53935;
+}

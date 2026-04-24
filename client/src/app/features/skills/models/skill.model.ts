@@ -1,3 +1,10 @@
+export interface SkillOwner {
+    _id: string;
+    username: string;
+    email: string;
+}
+
+
 
 
 export interface Skill {
@@ -6,7 +13,8 @@ export interface Skill {
     description: string;
     category: string;
     level: 'Beginner' | 'Intermediate' | 'Advanced';
-    owner: string;
+    owner: string | SkillOwner;
+    likes?: string[];
     createdAt?: string;
     updatedAt?: string;
 }

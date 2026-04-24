@@ -62,10 +62,20 @@
       @for (skill of filteredSkills(); track skill._id) {
         <article class="skill-card">
           <h3>{{ skill.title }}</h3>
+          <p><strong>Author:</strong> {{ getOwnerUsername(skill.owner) }}</p>
           <p><strong>Category:</strong> {{ skill.category }}</p>
           <p><strong>Level:</strong> {{ skill.level }}</p>
           <p>{{ skill.description | truncate:90 }}</p>
-          <a [routerLink]="['/skills', skill._id]" class="details-link">Details</a>
+          <div class="card-footer">
+            @if (isLoggedIn()) {
+              <button type="button" class="like-btn" [class.liked]="isLiked(skill)" (click)="onLike(skill)">
+                {{ isLiked(skill) ? '❤️' : '🤍' }} {{ skill.likes?.length || 0 }}
+              </button>
+            } @else {
+              <span class="likes-count">🤍 {{ skill.likes?.length || 0 }}</span>
+            }
+            <a [routerLink]="['/skills', skill._id]" class="details-link">Details</a>
+          </div>
         </article>
       }
     </div>

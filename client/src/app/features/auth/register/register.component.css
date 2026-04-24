@@ -105,3 +105,10 @@ button:hover{
 .link a:hover{
   text-decoration: underline;
 }
+
+.server-error {
+  color: #ff4444;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  text-align: center;
+}

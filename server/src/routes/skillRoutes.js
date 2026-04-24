@@ -7,7 +7,9 @@ const router = Router();
 
 router.get('/my-skills', authMiddleware, async (req, res) => {
     try {
-        const skills = await Skill.find({owner: req.user.id}).sort({ createdAt: -1});
+        const skills = await Skill.find({owner: req.user.id})
+            .populate('owner', 'username email')
+            .sort({ createdAt: -1});
         res.json(skills);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch your skills'})
@@ -16,7 +18,9 @@ router.get('/my-skills', authMiddleware, async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const skills = await Skill.find().sort({ createdAt: -1});
+        const skills = await Skill.find()
+            .populate('owner', 'username email')
+            .sort({ createdAt: -1});
         res.json(skills);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch skills'})
@@ -27,7 +31,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 
     try {
-        const skill = await Skill.findById(req.params.id);
+        const skill = await Skill.findById(req.params.id)
+            .populate('owner', 'username email');
 
         if (!skill) return res.status(404).json({ message: 'Skill not found' });
         res.json(skill);
@@ -36,6 +41,7 @@ router.get('/:id', async (req, res) => {
     }
     
 });
+
 
 
 router.post('/', authMiddleware, async (req, res) => {
@@ -48,6 +54,34 @@ router.post('/', authMiddleware, async (req, res) => {
         res.status(201).json(skill);
     } catch (error) {
         res.status(400).json({ message: 'Failed to create skill'});
+    }
+});
+
+router.post('/:id/like', authMiddleware, async (req, res) => {
+    try {
+        const skill = await Skill.findById(req.params.id);
+
+        if (!skill){
+            return res.status(404).json({ message: 'Skill not found'})
+        }
+
+        const userId = req.user.id;
+        const alreadyLiked = skill.likes.some((id) => id.toString() === userId);
+
+        if (alreadyLiked){
+            skill.likes = skill.likes.filter((id) => id.toString() !== userId);
+        }else{
+            skill.likes.push(userId);
+        }
+
+        await skill.save();
+
+        const updatedSkill = await Skill.findById(req.params.id)
+            .populate('owner', 'username email');
+        
+        res.json(updatedSkill);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update likes'})
     }
 });
 

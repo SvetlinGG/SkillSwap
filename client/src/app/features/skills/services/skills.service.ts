@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Skill } from '../models/skill.model';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 
 
@@ -34,5 +34,18 @@ export class SkillsService {
 
   deleteSkill(id: string): Observable<{message: string}>{
     return this.http.delete<{message: string}>(`${this.apiUrl}/${id}`)
+  }
+
+  // likeSkill(id: string): Observable<Skill>{
+  //   return this.http.post<Skill>(`${this.apiUrl}/${id}/like`, {});
+  // }
+
+  likeSkill(id: string){
+    return this.http.post<Skill>(`${this.apiUrl}/${id}/like`, {}).pipe(
+      catchError((error) => {
+        console.error('LIKE SKILL ERROR:', error);
+        return throwError(() => new Error(error?.error?.message || 'Failed to update likes.'));
+      })
+    );
   }
 }
