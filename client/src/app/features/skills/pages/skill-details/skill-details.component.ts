@@ -37,6 +37,11 @@ export class SkillDetailsComponent implements OnInit  {
 
   likesCount = computed(() => this.skill()?.likes?.length ?? 0);
 
+  ownerDisplayName = computed(() => {
+    const owner = this.skill()?.owner;
+    return owner && typeof owner === 'object' ? owner.username : 'Unknown';
+  });
+
   constructor( 
     private route: ActivatedRoute, 
     private router: Router,
