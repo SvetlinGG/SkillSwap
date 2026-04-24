@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
@@ -8,7 +8,7 @@ import { AuthService } from '../../../auth/auth.service';
 @Component({
   selector: 'app-skill-details',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   templateUrl: './skill-details.component.html',
   styleUrl: './skill-details.component.css'
 })
@@ -25,8 +25,10 @@ export class SkillDetailsComponent implements OnInit  {
   isOwner = computed(() => {
     const currentUserId = this.authService.getCurrentUserId();
     const currentSkill = this.skill();
+    const owner = currentSkill?.owner as any;
 
-    return !!currentUserId && !!currentSkill && currentSkill.owner === currentUserId;
+    const ownerId = typeof owner === 'object' ? owner?._id : owner;
+    return !!currentUserId && !!ownerId && ownerId.toString() === currentUserId.toString();
   });
 
   constructor( 
@@ -68,7 +70,7 @@ export class SkillDetailsComponent implements OnInit  {
 
     this.skillsService.deleteSkill(currentSkill._id).subscribe({
       next: () => this.router.navigate(['/skills']),
-      error: (err) => alert(err.error?.message || 'Failed to delete skill')
+      error: (err) => alert(err?.error?.message || 'Failed to delete skill')
       
     });
   }
