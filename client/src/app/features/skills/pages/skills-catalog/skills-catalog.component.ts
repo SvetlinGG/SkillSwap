@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 import { FormsModule } from '@angular/forms';
-import { Skill } from '../../models/skill.model';
+import { Skill, SkillOwner } from '../../models/skill.model';
 
 @Component({
   selector: 'app-skills-catalog',
@@ -84,6 +84,10 @@ export class SkillsCatalogComponent implements OnInit {
     this.searchTerm.set('');
     this.selectedLevel.set('All');
     this.selectedCategory.set('All');
+  }
+
+  getOwnerUsername(owner: string | SkillOwner): string {
+    return typeof owner === 'object' ? owner.username : 'Unknown';
   }
 
 }

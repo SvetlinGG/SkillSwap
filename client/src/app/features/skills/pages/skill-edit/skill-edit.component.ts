@@ -3,6 +3,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
 import { AuthService } from '../../../auth/auth.service';
+import { SkillOwner } from '../../models/skill.model';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -57,9 +58,11 @@ export class SkillEditComponent implements OnInit {
     this.skillsService.getSkillById(id).subscribe({
       next: (skill) => {
         const currentUserId = this.authService.getCurrentUserId();
+        const ownerId = typeof skill.owner === 'object' ? skill.owner._id : skill.owner;
 
-        if (skill.owner !== currentUserId){
+        if (ownerId?.toString() !== currentUserId?.toString()){
           this.router.navigate(['/skills', id]);
+          return;
         }
 
         this.editForm.patchValue({
