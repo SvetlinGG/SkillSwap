@@ -3,7 +3,7 @@
     <h2>{{ skill()!.title }}</h2>
     <p>
       <strong>Published by:</strong>
-      {{ typeof skill()!.owner === 'object' ? skill()!.owner : 'Unknown' }}
+      {{ typeof skill()!.owner === 'object' ? skill()!.owner.username : 'Unknown' }}
     </p>
     <p><strong>Category:</strong> {{ skill()!.category }}</p>
     <p><strong>Level:</strong> {{ skill()!.level }}</p>
