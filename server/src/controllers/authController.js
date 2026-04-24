@@ -16,9 +16,6 @@ const generateToken = (user) => {
 
 export const register = async (req, res) => {
     try {
-        console.log('REGISTER BODY:', req.body);
-
-
         const { username, email, password } = req.body;
 
         const existingUser = await User.findOne({email});
@@ -29,15 +26,11 @@ export const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        console.log('HASHED PASSWORD CREATED');
-
         const user = await User.create({
             username,
             email,
             password: hashedPassword
         });
-        console.log('USER CREATED:', user);
-
 
         const token = generateToken(user);
     
@@ -45,10 +38,9 @@ export const register = async (req, res) => {
             id: user._id,
             username: user.username,
             email: user.email,
-            accessToken: createToken(user)
+            accessToken: token
         });
     } catch (error) {
-        console.error('REGISTER ERROR:', error);
         res.status(500).json({ message: error.message || 'Register failed'})
     }
 };
@@ -77,7 +69,6 @@ export const login = async (req, res) => {
             accessToken: token
         });
     } catch (error) {
-        console.error('LOGIN ERROR:', error);
         res.status(500).json({ message: error.message || 'Login failed'});
     }
 };

@@ -23,7 +23,7 @@ export class AuthService {
     );
   }
 
-  register(data: {email: string; password: string}){
+  register(data: { username: string; email: string; password: string }){
     return this.http.post<AuthUser>(`${this.apiUrl}/register`, data).pipe(
       tap((user) => {
         localStorage.setItem('user', JSON.stringify(user));
