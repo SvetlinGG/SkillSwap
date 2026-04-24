@@ -36,6 +36,10 @@ export class SkillsService {
     return this.http.delete<{message: string}>(`${this.apiUrl}/${id}`)
   }
 
+  // likeSkill(id: string): Observable<Skill>{
+  //   return this.http.post<Skill>(`${this.apiUrl}/${id}/like`, {});
+  // }
+
   likeSkill(id: string){
     return this.http.post<Skill>(`${this.apiUrl}/${id}/like`, {}).pipe(
       catchError((error) => {

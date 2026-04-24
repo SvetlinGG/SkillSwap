@@ -26,10 +26,16 @@ export class SkillDetailsComponent implements OnInit  {
     const currentUserId = this.authService.getCurrentUserId();
     const currentSkill = this.skill();
     const owner = currentSkill?.owner as any;
-
     const ownerId = typeof owner === 'object' ? owner?._id : owner;
     return !!currentUserId && !!ownerId && ownerId.toString() === currentUserId.toString();
   });
+
+  isLiked = computed(() => {
+    const currentUserId = this.authService.getCurrentUserId();
+    return !!currentUserId && (this.skill()?.likes?.includes(currentUserId) ?? false);
+  });
+
+  likesCount = computed(() => this.skill()?.likes?.length ?? 0);
 
   constructor( 
     private route: ActivatedRoute, 
@@ -52,6 +58,16 @@ export class SkillDetailsComponent implements OnInit  {
       this.isLoading.set(false);
       },
       error: () => this.router.navigate(['/skills'])
+    });
+  }
+
+  onLike(): void {
+    const currentSkill = this.skill();
+    if (!currentSkill?._id) return;
+
+    this.skillsService.likeSkill(currentSkill._id).subscribe({
+      next: (updated) => this.skill.set(updated),
+      error: (err) => alert(err?.error?.message || 'Failed to like skill')
     });
   }
 
