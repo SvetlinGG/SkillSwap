@@ -52,12 +52,14 @@
     </nav>
 
     @if (isLoggedIn()) {
-      <div class="auth-box">
+      <div class="header-aside auth-box">
         <span class="user-email">{{ userEmail() }}</span>
         <button type="button" class="logout-btn" (click)="logout()">Logout</button>
       </div>
     } @else {
-      <div class="guest-label">Guest</div>
+      <div class="header-aside">
+        <span class="guest-label">Guest</span>
+      </div>
     }
   </div>
 </header>
