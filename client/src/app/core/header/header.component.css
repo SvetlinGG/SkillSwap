@@ -1,8 +1,11 @@
 .header {
-  background: #111827;
-  color: white;
+  background: rgba(6, 18, 42, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--text-primary);
   padding: 16px 24px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-soft);
 }
 
 .header-container {
@@ -15,7 +18,7 @@
 }
 
 .logo a {
-  color: white;
+  color: var(--text-primary);
   text-decoration: none;
   font-size: 24px;
   font-weight: 700;
@@ -29,7 +32,7 @@
 }
 
 .nav a {
-  color: #d1d5db;
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 15px;
   transition: color 0.2s ease;
@@ -37,7 +40,7 @@
 
 .nav a:hover,
 .nav a.active {
-  color: #60a5fa;
+  color: var(--link);
 }
 
 .auth-box {
@@ -48,17 +51,18 @@
 
 .user-email {
   font-size: 14px;
-  color: #cbd5e1;
+  color: var(--text-muted);
 }
 
 .logout-btn {
   border: none;
-  background: #ef4444;
-  color: white;
+  background: rgba(220, 60, 60, 0.9);
+  color: #fff;
   padding: 10px 14px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .logout-btn:hover {
@@ -66,7 +70,7 @@
 }
 
 .guest-label {
-  color: #9ca3af;
+  color: var(--text-muted);
   font-size: 14px;
 }
 

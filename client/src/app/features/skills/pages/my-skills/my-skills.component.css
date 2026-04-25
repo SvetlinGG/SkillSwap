@@ -1,45 +1,83 @@
 .my-skills-page {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 24px;
-  }
-  
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-  }
-  
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-  }
-  
-  .skill-card {
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 20px;
-    background: #fff;
-  }
-  
-  .actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-  }
-  
-  .create-btn {
-    display: inline-block;
-    padding: 10px 16px;
-    text-decoration: none;
-    background: #1976d2;
-    color: white;
-    border-radius: 8px;
-  }
-  
-  .empty-state {
-    text-align: center;
-    padding: 48px 24px;
-  }
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 22px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--surface-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-elevated);
+}
+
+.page-header h1,
+.page-header h2 {
+  margin: 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 22px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-soft);
+}
+
+.skill-card h3 {
+  margin: 0 0 10px;
+}
+
+.skill-card p {
+  margin: 0 0 8px;
+  color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.create-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  text-decoration: none;
+  background: linear-gradient(180deg, #5ac0ff 0%, var(--accent) 100%);
+  color: #051018;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0, 40, 80, 0.4);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  border: 1px dashed var(--surface-border);
+  border-radius: 18px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+}
+
+.empty-state p {
+  color: var(--text-muted);
+}

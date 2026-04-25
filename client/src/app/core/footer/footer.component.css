@@ -1,7 +1,10 @@
-
 .footer {
-    text-align: center;
-    padding: 20px;
-    background: #111;
-    color: #aaa;
-  }
+  text-align: center;
+  padding: 20px;
+  background: rgba(4, 14, 36, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-muted);
+  border-top: 1px solid var(--surface-border);
+  box-shadow: 0 -6px 24px rgba(0, 6, 18, 0.4);
+}
