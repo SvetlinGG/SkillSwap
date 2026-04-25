@@ -1,7 +1,35 @@
 <header class="header">
   <div class="header-container">
     <div class="logo">
-      <a routerLink="/">SkillSwap</a>
+      <a routerLink="/" class="logo-link" aria-label="SkillSwap — Home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg class="logo-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <defs>
+              <linearGradient id="headerLogoFace" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#93c5fd" />
+                <stop offset="0.45" stop-color="#5ac0ff" />
+                <stop offset="1" stop-color="#4ade80" />
+              </linearGradient>
+            </defs>
+            <rect x="1.5" y="1.5" width="21" height="21" rx="6.5" fill="url(#headerLogoFace)" />
+            <path
+              fill="none"
+              stroke="#061428"
+              stroke-width="1.65"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-opacity="0.88"
+              d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+            />
+          </svg>
+        </span>
+        <span class="logo-type">
+          <span class="logo-line">
+            <span class="logo-skill">Skill</span><span class="logo-swap">Swap</span>
+          </span>
+          <span class="logo-tag">exchange · learn · grow</span>
+        </span>
+      </a>
     </div>
 
     <nav class="nav">
