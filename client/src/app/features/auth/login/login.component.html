@@ -1,46 +1,45 @@
-
-  <body>
-    <div class="login-form">
-       <div class="text">
-          LOGIN
-       </div>
-       <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="field">
-             <div class="fas fa-envelope"></div>
-             <input 
-               id="email"
-               type="email" 
-               placeholder="enter your email" 
-               formControlName="email" 
-               name="email"
-               />
-          </div>
-          <div class="field">
-             <div class="fas fa-lock"></div>
-             <input 
-               id="password"
-               type="password" 
-               placeholder="password" 
-               formControlName="password" 
-               name="password"
-               />
-               @if (password?.touched && password?.errors?.['required']) {
-                 <p class="error">Password is required.</p>
-               }
-               @if (password?.touched && password?.errors?.['minlength']) {
-                 <p class="error">Password must be at least 6 characters long.</p>
-               }
-               @if (errorMessage()) {
-                 <p class="server-error">{{ errorMessage() }}</p>
-               }
-          </div>
-          <button type="submit" [disabled]="loginForm.invalid || isSubmitting()">
-            {{ isSubmitting() ? 'Signing in...' : 'Login' }}
-          </button>
-          <div class="link">
-            Don't have an account?
-             <a routerLink="/register">Signup now</a>
-          </div>
-       </form>
-    </div>
- </body>
+<div class="auth-page">
+  <div class="login-form">
+    <div class="text">LOGIN</div>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="field">
+        <div class="fas fa-envelope"></div>
+        <input
+          id="email"
+          type="email"
+          placeholder="enter your email"
+          formControlName="email"
+          name="email"
+        />
+      </div>
+      <div class="field field-stack">
+        <div class="field-row">
+          <div class="fas fa-lock"></div>
+          <input
+            id="password"
+            type="password"
+            placeholder="password"
+            formControlName="password"
+            name="password"
+          />
+        </div>
+        @if (password?.touched && password?.errors?.['required']) {
+          <p class="error">Password is required.</p>
+        }
+        @if (password?.touched && password?.errors?.['minlength']) {
+          <p class="error">Password must be at least 6 characters long.</p>
+        }
+        @if (errorMessage()) {
+          <p class="server-error">{{ errorMessage() }}</p>
+        }
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid || isSubmitting()">
+        {{ isSubmitting() ? 'Signing in...' : 'Login' }}
+      </button>
+      <div class="link">
+        Don't have an account?
+        <a routerLink="/register">Signup now</a>
+      </div>
+    </form>
+  </div>
+</div>

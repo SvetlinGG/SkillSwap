@@ -1,10 +1,9 @@
-<body>
+<div class="auth-page">
   <div class="login-form">
     <div class="text">REGISTER</div>
     <form [formGroup]="registerForm" (ngSubmit)="register()">
-
       <div class="field">
-        <div class="fas fa-envelope"></div>
+        <div class="fas fa-user"></div>
         <input
           id="name"
           type="text"
@@ -15,22 +14,19 @@
 
       <div class="field">
         <div class="fas fa-envelope"></div>
-        <input
-          id="email"
-          type="email"
-          placeholder="Email"
-          formControlName="email"
-        />
+        <input id="email" type="email" placeholder="Email" formControlName="email" />
       </div>
 
-      <div class="field">
-        <div class="fas fa-lock"></div>
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          formControlName="password"
-        />
+      <div class="field field-stack">
+        <div class="field-row">
+          <div class="fas fa-lock"></div>
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+        </div>
         @if (password?.touched && password?.errors?.['required']) {
           <p class="error">Password is required.</p>
         }
@@ -51,7 +47,6 @@
         Already have an account?
         <a routerLink="/login">Login</a>
       </div>
-
     </form>
   </div>
-</body>
+</div>
