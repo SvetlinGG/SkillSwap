@@ -62,6 +62,16 @@
   font-weight: 600;
 }
 
+.latest-section {
+  padding: 24px;
+  border-radius: 18px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-soft);
+}
+
 .latest-section h2 {
   margin: 0 0 18px;
 }
