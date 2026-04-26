@@ -4,11 +4,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
 import { Skill } from '../../models/skill.model';
 import { AuthService } from '../../../auth/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-skill-details',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './skill-details.component.html',
   styleUrl: './skill-details.component.css'
 })
@@ -93,6 +94,38 @@ export class SkillDetailsComponent implements OnInit  {
       next: () => this.router.navigate(['/skills']),
       error: (err) => alert(err?.error?.message || 'Failed to delete skill')
       
+    });
+  }
+
+  commentText = '';
+  isCommentSubmitting = signal(false);
+
+  submitComment(): void{
+    const currentSkill = this.skill();
+
+    if(!currentSkill?._id){
+      return;
+    }
+
+    const text = this.commentText.trim();
+
+    if(text.length < 2){
+      this.errorMessage.set('Comment must be at least 2 characters long.');
+      return;
+    }
+    this.errorMessage.set('');
+    this.isCommentSubmitting.set(true);
+
+    this.skillsService.addComment(currentSkill._id, text).subscribe({
+      next: (updatedSkill) => {
+        this.skill.set(updatedSkill);
+        this.commentText = '';
+        this.isCommentSubmitting.set(false);
+      },
+      error: (err) => {
+        this.errorMessage.set(err.message || 'Failed to add comment');
+        this.isCommentSubmitting.set(false);
+      }
     });
   }
 
