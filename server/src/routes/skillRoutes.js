@@ -32,7 +32,8 @@ router.get('/:id', async (req, res) => {
 
     try {
         const skill = await Skill.findById(req.params.id)
-            .populate('owner', 'username email');
+            .populate('owner', 'username email')
+            .populate('comments.user', 'username email');
 
         if (!skill) return res.status(404).json({ message: 'Skill not found' });
         res.json(skill);
@@ -77,13 +78,48 @@ router.post('/:id/like', authMiddleware, async (req, res) => {
         await skill.save();
 
         const updatedSkill = await Skill.findById(req.params.id)
-            .populate('owner', 'username email');
+            .populate('owner', 'username email')
+            .populate('comments.user', 'username email');
         
         res.json(updatedSkill);
     } catch (error) {
         res.status(500).json({ message: 'Failed to update likes'})
     }
 });
+
+router.post('/:id/comments', authMiddleware, async (req, res) => {
+    try {
+        const { text } = req.body;
+
+        if (!text || text.trim().length < 2){
+            return res.status(400).json({
+                message: 'Comment must be at least 2 characters long'
+            });
+        }
+
+        const skill = await Skill.findById(req.params.id);
+
+        if (!skill){
+            return res.status(404).json({ message: 'Skill not found'});
+        }
+
+        skill.comments.push({
+            user: req.user.id,
+            text: text.trim()
+        });
+
+        await skill.save();
+
+        const updatedSkill = await Skill.findById(req.params.id)
+            .populate('owner', 'username email')
+            .populate('comments.user', 'username email');
+        res.status(201).json(updatedSkill);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to add comment'})
+    }
+})
+
+
 
 router.put('/:id', authMiddleware, async (req, res) => {
     try {

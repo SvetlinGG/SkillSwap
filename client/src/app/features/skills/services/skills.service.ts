@@ -48,4 +48,13 @@ export class SkillsService {
       })
     );
   }
+
+  addComment( id: string, text: string){
+    return this.http.post<Skill>(`${this.apiUrl}/${id}/comments`, { text }).pipe(
+      catchError((error) => {
+        console.error('ADD COMMENT ERROR:', error);
+        return throwError(() => new Error(error?.error?.message || 'Failed to add comment'))
+      })
+    );
+  }
 }
