@@ -111,12 +111,20 @@
   background: #f8fafc;
 }
 
+.comment-card p {
+  color: #111827;
+}
+
 .comment-header {
   display: flex;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 8px;
   color: #374151;
+}
+
+.comment-header strong {
+  color: #111827;
 }
 
 .comment-header span {

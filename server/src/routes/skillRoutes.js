@@ -79,7 +79,7 @@ router.post('/:id/like', authMiddleware, async (req, res) => {
 
         const updatedSkill = await Skill.findById(req.params.id)
             .populate('owner', 'username email')
-            .populate('comments user', 'username email');
+            .populate('comments.user', 'username email');
         
         res.json(updatedSkill);
     } catch (error) {
