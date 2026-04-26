@@ -32,7 +32,8 @@ router.get('/:id', async (req, res) => {
 
     try {
         const skill = await Skill.findById(req.params.id)
-            .populate('owner', 'username email');
+            .populate('owner', 'username email')
+            .populate('comments.user', 'username email');
 
         if (!skill) return res.status(404).json({ message: 'Skill not found' });
         res.json(skill);
@@ -77,7 +78,8 @@ router.post('/:id/like', authMiddleware, async (req, res) => {
         await skill.save();
 
         const updatedSkill = await Skill.findById(req.params.id)
-            .populate('owner', 'username email');
+            .populate('owner', 'username email')
+            .populate('comments user', 'username email');
         
         res.json(updatedSkill);
     } catch (error) {
