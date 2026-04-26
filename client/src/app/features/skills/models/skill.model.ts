@@ -22,6 +22,7 @@ export interface Skill {
     level: 'Beginner' | 'Intermediate' | 'Advanced';
     owner: string | SkillOwner;
     likes?: string[];
+    comments?: SkillComment[];
     createdAt?: string;
     updatedAt?: string;
 }
