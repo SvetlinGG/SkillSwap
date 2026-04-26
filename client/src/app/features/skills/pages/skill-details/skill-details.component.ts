@@ -1,4 +1,5 @@
 
+import { DatePipe } from '@angular/common';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkillsService } from '../../services/skills.service';
@@ -9,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-skill-details',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, DatePipe],
   templateUrl: './skill-details.component.html',
   styleUrl: './skill-details.component.css'
 })
@@ -42,6 +43,10 @@ export class SkillDetailsComponent implements OnInit  {
     const owner = this.skill()?.owner;
     return owner && typeof owner === 'object' ? owner.username : 'Unknown';
   });
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
   constructor( 
     private route: ActivatedRoute, 
@@ -99,6 +104,7 @@ export class SkillDetailsComponent implements OnInit  {
 
   commentText = '';
   isCommentSubmitting = signal(false);
+  errorMessage = signal('');
 
   submitComment(): void{
     const currentSkill = this.skill();

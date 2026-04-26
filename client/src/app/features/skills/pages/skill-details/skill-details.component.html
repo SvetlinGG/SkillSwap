@@ -19,7 +19,7 @@
     <section class="comments-section">
       <h3>Comments</h3>
     
-      @if (authService.isLoggedIn()) {
+      @if (isLoggedIn()) {
         <form
           class="comment-form"
           (ngSubmit)="submitComment()"
@@ -52,7 +52,7 @@
     
       @if (skill()!.comments?.length) {
         <div>
-          @for (comment of skill()!.comments; track comment.id) {
+          @for (comment of skill()!.comments; track comment._id) {
             <article class="comment-card">
               <div class="comment-header">
                 <strong>{{ comment.user.username }}</strong>
