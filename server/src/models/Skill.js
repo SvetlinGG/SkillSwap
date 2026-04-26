@@ -1,25 +1,10 @@
 import mongoose from 'mongoose';
 
 const skillSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        minlength: 3
-    },
-    description: {
-        type: String,
-        required: true,
-        minlength: 10
-    },
-    category: {
-        type: String,
-        required: true
-    },
-    level: {
-        type: String,
-        enum: ['Beginner', 'Intermediate', 'Advanced'],
-        required: true
-    },
+    title: String,
+    description: String,
+    category: String,
+    level: String,
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -31,7 +16,25 @@ const skillSchema = new mongoose.Schema({
             ref: 'User'
         }
     ],
-    createdAt: { type: Date, default: Date.now }
+    comments: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+                required: true
+            },
+            text: {
+                type: String,
+                required: true,
+                minlength: 2,
+                maxlength: 300
+            },
+            createdAt: { 
+                type: Date, 
+                default: Date.now 
+            }
+        }
+    ]
 },
 { timestamps: true}
 );
