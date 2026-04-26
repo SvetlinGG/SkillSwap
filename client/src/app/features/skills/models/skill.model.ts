@@ -4,6 +4,13 @@ export interface SkillOwner {
     email: string;
 }
 
+export interface SkillComment {
+    _id?: string;
+    user: SkillOwner;
+    text: string;
+    createdAt: string;
+}
+
 
 
 
