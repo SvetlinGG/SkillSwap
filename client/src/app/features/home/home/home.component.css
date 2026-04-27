@@ -42,12 +42,19 @@
 } */
 
 .hero {
+  max-width: 1100px;
   min-height: 420px;
+  margin: 40px auto 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 60px 24px;
-  background: #f8fafc;
+  background: var(--surface-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--surface-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-elevated);
   text-align: center;
 }
 
@@ -56,13 +63,13 @@
 }
 
 .hero h1 {
-  font-size: 44px;
+  font-size: clamp(2rem, 4vw, 2.75rem);
   margin-bottom: 16px;
 }
 
 .hero p {
   font-size: 18px;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin-bottom: 28px;
 }
 
@@ -75,20 +82,27 @@
 
 .btn {
   padding: 12px 18px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .primary {
-  background: #2563eb;
-  color: white;
+  background: linear-gradient(180deg, #5ac0ff 0%, var(--accent) 100%);
+  color: #051018;
+  box-shadow: 0 6px 20px rgba(0, 40, 80, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .secondary {
-  background: white;
-  color: #2563eb;
-  border: 1px solid #2563eb;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-soft);
 }
 
 .features {
@@ -102,7 +116,32 @@
 
 .features article {
   padding: 24px;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  background: white;
+  border: 1px solid var(--surface-border);
+  border-radius: 18px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-soft);
+}
+
+.features h3 {
+  margin: 0 0 10px;
+}
+
+.features p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    margin: 24px 16px 0;
+    padding: 44px 20px;
+    min-height: 360px;
+  }
+
+  .features {
+    margin: 24px auto;
+    padding: 16px;
+  }
 }
