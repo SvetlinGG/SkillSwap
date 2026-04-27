@@ -24,7 +24,7 @@
   
             <p>
               <strong>Author:</strong>
-              {{ typeof skill.owner === 'object' ? skill.owner.username : 'Unknown' }}
+              {{ getOwnerName(skill) }}
             </p>
   
             <p><strong>Category:</strong> {{ skill.category }}</p>

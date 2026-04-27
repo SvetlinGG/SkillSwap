@@ -31,4 +31,8 @@ export class LikedSkillsComponent implements OnInit {
       }
     });
   }
+
+  getOwnerName(skill: Skill): string {
+    return typeof skill.owner === 'object' ? skill.owner.username : 'Unknown';
+  }
 }
