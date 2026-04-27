@@ -5,7 +5,13 @@ import skillRoutes from './routes/skillRoutes.js';
 
 export const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:4200',
+    'https://https://skillswapapplication.netlify.app/skills'
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 app.use((req, res, next) => {
