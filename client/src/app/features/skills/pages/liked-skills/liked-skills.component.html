@@ -1,0 +1,51 @@
+<section class="liked-page">
+    <div class="page-header">
+      <div>
+        <h2>Liked Skills</h2>
+        <p>Skills you have liked and want to revisit later.</p>
+      </div>
+    </div>
+  
+    @if (isLoading()) {
+      <p>Loading liked skills...</p>
+    }
+  
+    @if (!isLoading() && errorMessage()) {
+      <p class="server-error">
+        {{ errorMessage() }}
+      </p>
+    }
+  
+    @if (!isLoading() && likedSkills().length > 0) {
+      <div class="skills-grid">
+        @for (skill of likedSkills(); track skill._id) {
+          <article class="skill-card">
+            <h3>{{ skill.title }}</h3>
+  
+            <p>
+              <strong>Author:</strong>
+              {{ getOwnerName(skill) }}
+            </p>
+  
+            <p><strong>Category:</strong> {{ skill.category }}</p>
+            <p><strong>Level:</strong> {{ skill.level }}</p>
+            <p><strong>Likes:</strong> {{ skill.likes?.length || 0 }}</p>
+  
+            <p>{{ skill.description | truncate:90 }}</p>
+  
+            <a [routerLink]="['/skills', skill._id]" class="details-link">
+              View Details
+            </a>
+          </article>
+        }
+      </div>
+    }
+  
+    @if (!isLoading() && !errorMessage() && likedSkills().length === 0) {
+      <div class="empty-state">
+        <h3>No liked skills yet.</h3>
+        <p>Go to the catalog and like some skills.</p>
+        <a routerLink="/skills" class="catalog-link">Browse Catalog</a>
+      </div>
+    }
+  </section>

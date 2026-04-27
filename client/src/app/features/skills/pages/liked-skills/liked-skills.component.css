@@ -1,0 +1,89 @@
+.liked-page {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+  padding: 20px 22px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--surface-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-elevated);
+}
+
+.page-header h2 {
+  margin: 0 0 8px;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  padding: 22px;
+  border: 1px solid var(--surface-border);
+  border-radius: 18px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-soft);
+}
+
+.skill-card h3 {
+  margin: 0 0 10px;
+}
+
+.skill-card p {
+  margin: 0 0 10px;
+  color: var(--text-secondary);
+}
+
+.skill-card strong {
+  color: var(--text-primary);
+}
+
+.details-link,
+.catalog-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  border: 1px dashed var(--surface-border);
+  border-radius: 18px;
+  background: var(--surface-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+}
+
+.empty-state h3 {
+  margin: 0 0 10px;
+}
+
+.empty-state p {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+}
+
+.server-error {
+  color: var(--danger);
+  font-weight: 600;
+  margin-bottom: 20px;
+}

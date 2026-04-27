@@ -14,6 +14,13 @@ export const routes: Routes = [
             .then( r => r.skillsRoutes)
     },
     {
+        path: 'liked-skills',
+        canActivate: [authGuard],
+        loadComponent: () =>
+            import('./features/skills/pages/liked-skills/liked-skills.component')
+            .then(c => c.LikedSkillsComponent)
+    },
+    {
         path: 'login', 
         canActivate: [guestGuard],
         loadComponent: () =>
