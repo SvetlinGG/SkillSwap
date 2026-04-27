@@ -5,14 +5,14 @@ import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = Router();
 
-router.get('/my-skills', authMiddleware, async (req, res) => {
+router.get('/liked', authMiddleware, async (req, res) => {
     try {
-        const skills = await Skill.find({owner: req.user.id})
+        const likedSkills = await Skill.find({likes: req.user.id})
             .populate('owner', 'username email')
             .sort({ createdAt: -1});
-        res.json(skills);
+        res.json(likedSkills);
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch your skills'})
+        res.status(500).json({ message: 'Failed to fetch your liked skills'})
     }
 });
 
