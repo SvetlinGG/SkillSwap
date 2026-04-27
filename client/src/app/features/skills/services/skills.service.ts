@@ -49,8 +49,8 @@ export class SkillsService {
     );
   }
 
-  getLikedSkills(){
-    return this.http.get<Skill>(`${this.apiUrl}/liked`).pipe(
+  getLikedSkills(): Observable<Skill[]> {
+    return this.http.get<Skill[]>(`${this.apiUrl}/liked`).pipe(
       catchError((error) => {
         console.error('GET LIKED SKILLS ERROR:', error);
         return throwError(() => new Error(error?.error?.message || 'Failed to load liked skills.'))
