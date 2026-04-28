@@ -1,5 +1,7 @@
 # 🧠 SkillSwap – Skill Exchange Platform
 
+live demo: https://skillswapapplication.netlify.app
+
 SkillSwap is a full-stack web application that allows users to share, discover, and manage skills. Users can create skill listings, browse others’ skills, and manage their own content through a secure and user-friendly interface.
 
 ---
