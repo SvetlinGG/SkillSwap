@@ -8,7 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class SkillsService {
   
-  private apiUrl = 'http://localhost:5050/api/skills'
+  private apiUrl = 'https://skillswap-w2jd.onrender.com/api/skills';
 
   constructor(private http: HttpClient) { }
 
